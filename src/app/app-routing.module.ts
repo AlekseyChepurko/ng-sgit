@@ -1,13 +1,21 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ButtonComponent } from 'src/app/atoms/button/button.component';
+import { AdminGuard, adminRoutesNames } from './pages/admin';
 
-const routes: Routes = [
-  {path: '', component: ButtonComponent}
-];
+const routes: Routes = [{
+  path: `${adminRoutesNames.admin}`,
+  canActivate: [AdminGuard],
+  loadChildren: './pages/admin/admin.module#AdminModule'
+}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
+  providers: [AdminGuard],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+class AppRoutingModule { }
+
+export {
+  AppRoutingModule,
+  routes
+};
