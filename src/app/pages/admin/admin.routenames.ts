@@ -1,15 +1,13 @@
 import {routesNames as list} from './pages/list/list.routes';
 
-const routesNames = {
-    admin: {
-        list
-    }
+const adminRoutenames = {
+    list
 };
 
-Object.defineProperty(routesNames.admin, 'toString', {
+Object.defineProperty(adminRoutenames, 'toString', {
     value: () => 'admin'
 });
 
 export {
-    routesNames
+    adminRoutenames
 };

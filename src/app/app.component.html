@@ -1,5 +1,8 @@
-<div><a routerLink="/">main</a></div>
-<div><a routerLink="{{adminPageLink}}">admin</a></div>
-<div><a routerLink="{{listPageLink}}">list</a></div>
+<div class="navigation">
+    <a class="navigation__link" routerLink="/">main</a>
+    <a class="navigation__link" routerLink="{{adminPageLink}}">admin</a>
+    <a class="navigation__link" routerLink="{{carsPageLink}}">cars</a>
+    <a class="navigation__link" routerLink="{{loginPageLink}}">login</a>
+</div>
 
 <router-outlet></router-outlet>

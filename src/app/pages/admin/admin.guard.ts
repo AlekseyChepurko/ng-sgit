@@ -14,6 +14,10 @@ class AdminGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
         // Check access rights here
+        if (!window['loggedin']) { // tslint:disable-line
+            this.router.navigate(['login']);
+            return false;
+        }
         return true;
     }
 }

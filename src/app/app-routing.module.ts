@@ -1,11 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AdminGuard, adminRoutesNames } from './pages/admin';
+import * as routenames from './pages/routenames';
+import { AdminGuard } from './pages/admin';
 
 const routes: Routes = [{
-  path: `${adminRoutesNames.admin}`,
+  path: `${routenames.admin}`,
   canActivate: [AdminGuard],
   loadChildren: './pages/admin/admin.module#AdminModule'
+}, {
+  path: `${routenames.cars}`,
+  loadChildren: './pages/cars/cars.module#CarsModule'
+}, {
+  path: `${routenames.login}`,
+  loadChildren: './pages/login/login.module#LoginModule'
 }];
 
 @NgModule({

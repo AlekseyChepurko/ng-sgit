@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { adminRoutesNames } from './pages/admin';
+import * as routenames from './pages/routenames';
 
 @Component({
   selector: 'app-root',
@@ -7,8 +7,9 @@ import { adminRoutesNames } from './pages/admin';
   styleUrls: ['./app.component.scss']
 })
 class AppComponent {
-  adminPageLink = adminRoutesNames.admin;
-  listPageLink = `${adminRoutesNames.admin}/${adminRoutesNames.admin.list}`;
+  adminPageLink = routenames.admin;
+  carsPageLink = `${routenames.cars}`;
+  loginPageLink = `${routenames.login}`;
 }
 
 export { AppComponent };
