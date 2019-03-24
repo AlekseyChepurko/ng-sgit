@@ -1,24 +1,22 @@
 import {
     Router,
     CanActivate,
-    ActivatedRouteSnapshot,
-    RouterStateSnapshot
+    ActivatedRouteSnapshot
   } from '@angular/router';
-
 import {Observable} from 'rxjs';
+import { tap, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+import { UserService } from 'app/services/user/user.service';
 
 @Injectable()
 class AdminGuard implements CanActivate {
-    constructor(private router: Router) {}
+    constructor(private router: Router, private user: UserService) {}
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
-        // Check access rights here
-        if (!window['loggedin']) { // tslint:disable-line
-            this.router.navigate(['login']);
-            return false;
-        }
-        return true;
+    canActivate(route: ActivatedRouteSnapshot): Observable<boolean> | boolean {
+        return this.user.userSubject.pipe(
+            map(Boolean),
+            tap((userInfo) => !userInfo && this.router.navigate([route.data.fallbackRedirect]))
+        );
     }
 }
 
