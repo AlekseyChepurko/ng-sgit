@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AtomsModule } from 'src/app/atoms/atoms.module';
+import { AtomsModule } from 'app/atoms/atoms.module';
 
 import { AdminComponent } from './admin.component';
 import { routes as listRoutes, ListComponent } from './pages/list';
