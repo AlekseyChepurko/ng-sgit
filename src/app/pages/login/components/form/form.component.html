@@ -1,0 +1,5 @@
+<form (ngSubmit)="submit()" [formGroup]="authGroup">
+    <input type="text" formControlName="login" required placeholder="login"/>
+    <input type="password" formControlName="pass" required placeholder="password"/>
+    <button type="submit" [disabled]="!authGroup.valid">login</button>
+</form>

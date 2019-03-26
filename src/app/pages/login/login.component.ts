@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'app/services/user/user.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { UserService } from 'app/services/user/user.service';
+import { IUSerCreds } from 'app/services/user/typings';
 
 @Component({
     selector: 'app-login',
@@ -16,8 +17,8 @@ class LoginComponent implements OnInit {
         this.isLoggedin = this.user.userSubject.pipe(map(Boolean));
     }
 
-    onSubmit() {
-        this.user.login({login: 'admin', pass: 'admin'});
+    onSubmit(userCreds: IUSerCreds) {
+        this.user.login(userCreds);
     }
     onLogout() {
         this.user.logout();
