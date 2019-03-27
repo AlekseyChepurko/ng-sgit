@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { IUSerCreds } from 'app/services/user/typings';
 
@@ -7,7 +7,7 @@ import { IUSerCreds } from 'app/services/user/typings';
     templateUrl: './form.component.html'
 })
 class LoginFormComponent {
-    @Output() ngSubmit: EventEmitter<IUSerCreds> = new EventEmitter();
+    @Output() onsubmit: EventEmitter<IUSerCreds> = new EventEmitter();
     constructor(
         private fb: FormBuilder
     ) {}
@@ -19,7 +19,7 @@ class LoginFormComponent {
 
     submit = () => {
         if (this.authGroup.valid) {
-            this.ngSubmit.emit(this.authGroup.value);
+            this.onsubmit.emit(this.authGroup.value);
         }
     }
 }

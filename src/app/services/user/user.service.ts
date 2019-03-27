@@ -1,28 +1,34 @@
 import { Injectable } from '@angular/core';
-import { from, BehaviorSubject } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
+
+import { API_URL } from 'env';
 import { IUser, IUSerCreds } from './typings';
+import { HttpClient } from '@angular/common/http';
 
-const adminUser: IUser = {name: 'admin', login: 'admin'};
-
-const loginMock = (user: IUSerCreds): Promise<IUser> => {
-    if (user.login === 'admin' && user.pass === 'admin') {
-        return Promise.resolve(adminUser);
-    }
-    return Promise.reject({user, code: 401});
-};
 @Injectable({
     providedIn: 'root',
 })
 class UserService {
+    constructor(private http: HttpClient) {}
     public userSubject = new BehaviorSubject<IUser | null>(null);
     public login = (user: IUSerCreds) => {
-        from(loginMock(user))
-            .pipe(take(1))
-            .subscribe((userInfo) => {
-                this.userSubject.next(userInfo);
-            });
-    }
+        return this
+            .http
+            .post<IUser>(`${API_URL}/api/login`, user)
+            .pipe(
+                tap((userInfo) => {
+                    this.userSubject.next(userInfo);
+                }),
+                catchError((e) => {
+                    if (e.status === 403) {
+                        // Yeah. Its not acceptable in prod
+                        alert('wrong creds');
+                    }
+                    return new Observable();
+                })
+            );
+        }
 
     public logout = () => {
         this.userSubject.next(null);
