@@ -1,6 +1,7 @@
 <div>login component</div>
 
 <ng-container *ngIf="isLoggedin | async; else loginForm">
+    <div>you are logged in as {{userNameObs | async}}</div>
     <button (click)="onLogout()">logout</button>
 </ng-container>
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 import { UserService } from 'app/services/user/user.service';
 import { IUSerCreds } from 'app/services/user/typings';
 
@@ -12,11 +12,14 @@ import { IUSerCreds } from 'app/services/user/typings';
 class LoginComponent implements OnInit, OnDestroy {
     isLoggedin: Observable<boolean>;
     loginSubscription: Subscription;
+    userNameObs: Observable<string>;
 
     constructor(private user: UserService) {}
     ngOnInit() {
         this.isLoggedin = this.user.userSubject.pipe(map(Boolean));
+        this.userNameObs = this.user.userSubject.pipe(filter(Boolean), map((user) => user.login));
     }
+
     ngOnDestroy() {
         if (this.loginSubscription) {
             this.loginSubscription.unsubscribe();
